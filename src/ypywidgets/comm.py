@@ -54,6 +54,10 @@ class CommProvider:
 
     def _receive(self, msg):
         message = bytes(msg["buffers"][0])
+
+        if not message:
+            return
+
         if message[0] == YMessageType.SYNC:
             reply = handle_sync_message(message[1:], self._ydoc)
             if reply is not None:
